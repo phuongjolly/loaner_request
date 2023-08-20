@@ -20,7 +20,7 @@
 	var city = g_scratchpad.city;
 	var country = g_scratchpad.country;
 
-	alert("check!!!", g_scratchpad);
+	//alert("check!!!", g_scratchpad);
 
 	if (city && country){
 	   g_form.setValue('location_to_be_used', city + ', ' + country);
@@ -44,7 +44,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>c0561f08dc30b1107f44ffe19505917e</sys_id>
-        <sys_mod_count>11</sys_mod_count>
+        <sys_mod_count>12</sys_mod_count>
         <sys_name>Set Loaner Location</sys_name>
         <sys_overrides/>
         <sys_package display_value="Loaner Request" source="x_cdltd_loaner_req">a6872c84dc7871107f44ffe1950591c2</sys_package>
@@ -52,7 +52,7 @@
         <sys_scope display_value="Loaner Request">a6872c84dc7871107f44ffe1950591c2</sys_scope>
         <sys_update_name>sys_script_client_c0561f08dc30b1107f44ffe19505917e</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-08-17 18:16:31</sys_updated_on>
+        <sys_updated_on>2023-08-19 00:08:36</sys_updated_on>
         <table>x_cdltd_loaner_req_loan_request</table>
         <type>onLoad</type>
         <ui_type>0</ui_type>

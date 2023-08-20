@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_cdltd_loaner_req.LoanerLib</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>LoanerLib</name>
+        <script><![CDATA[var LoanerLib = Class.create();
+	LoanerLib.prototype = {
+		initialize: function() {
+			gs.info("Loaner Lib");
+		},
+		
+		triggerReminder: function() {
+			gs.info("triggerReminder2222");
+				var gr = new GlideRecord('x_cdltd_loaner_req_loan_request');
+				var pickUpLeadTime = gs.getProperty('x_cdltd_loaner_req.pickup.leadtime',24) * 60 * 60 * 1000;
+
+				var noticeTime = new GlideDateTime();
+				noticeTime.add(pickUpLeadTime);
+
+				gr.addQuery('state',16);
+				gr.addQuery('pick_up_reminder','');
+				gr.addQuery('start_date', '<=',noticeTime);
+				gr.query();
+
+				var rightNow = new GlideDateTime();
+
+				while (gr.next()) {
+					gr.pick_up_reminder = rightNow;
+					gr.update();
+					gs.eventQueue('x_cdltd_loaner_req.pickUp',gr,gr.number,gs.getUserName());
+				}
+		},
+		type: 'LoanerLib'
+	};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-08-20 06:22:45</sys_created_on>
+        <sys_id>ba4eea01dcf875107f44ffe19505918f</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>LoanerLib</sys_name>
+        <sys_package display_value="Loaner Request" source="x_cdltd_loaner_req">a6872c84dc7871107f44ffe1950591c2</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Loaner Request">a6872c84dc7871107f44ffe1950591c2</sys_scope>
+        <sys_update_name>sys_script_include_ba4eea01dcf875107f44ffe19505918f</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-08-20 06:37:31</sys_updated_on>
+    </sys_script_include>
+</record_update>
