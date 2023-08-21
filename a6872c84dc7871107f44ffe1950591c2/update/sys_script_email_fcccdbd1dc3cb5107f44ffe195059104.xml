@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_email">
+    <sys_script_email action="INSERT_OR_UPDATE">
+        <name>x_cdltd_loaner_req_loan_request_script_1</name>
+        <new_lines_to_html>false</new_lines_to_html>
+        <script><![CDATA[template_print.info('phuong debug mail temaplate');
+ template_print.info(current.item_type);
+ template_print.info('check current: ' + JSON.stringify(current));
+ 
+ if (current.item_type == 'laptop') {
+  template_print.info('phuong check debug business rule');
+  template_print.info('check link tag: ' + current.cmdb_ci.asset_tag);
+  template_print.info('check table: ' + JSON.stringify(current.cmdb_ci));
+  template_print.info('======');
+  var request = new sn_ws.RESTMessageV2();
+  request.setEndpoint('https://nowlearning-nlinst01002374-test-001.lab.service-now.com/api/now/table/u_password_vault?sysparm_query=u_asset%3D' + current.cmdb_ci.asset_tag + '&sysparm_fields=u_password&sysparm_limit=1');
+  request.setHttpMethod('GET');
+  //Eg. UserName="admin", Password="admin" for this code sample.
+  var user = 'admin';
+  var password = 'Y9SjtjD64ZAY';
+  request.setBasicAuth(user,password);
+  request.setRequestHeader("Accept","application/json");
+  var response = request.execute();
+  template_print.info('phuong start check response ');
+  template_print.info(response.getBody());
+  template_print.info('end check response');
+  var obj = JSON.parse(response.getBody());
+  var myPass = obj.result[0].u_password;
+  template_print.info("u_password " + myPass);
+ }]]></script>
+        <sys_class_name>sys_script_email</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-08-21 04:20:33</sys_created_on>
+        <sys_id>fcccdbd1dc3cb5107f44ffe195059104</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>x_cdltd_loaner_req_loan_request_script_1</sys_name>
+        <sys_package display_value="Loaner Request" source="x_cdltd_loaner_req">a6872c84dc7871107f44ffe1950591c2</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Loaner Request">a6872c84dc7871107f44ffe1950591c2</sys_scope>
+        <sys_update_name>sys_script_email_fcccdbd1dc3cb5107f44ffe195059104</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-08-21 04:22:50</sys_updated_on>
+    </sys_script_email>
+</record_update>
